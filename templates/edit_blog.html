@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Blog | BlogSpace</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="{{ url_for('index') }}" class="logo">BlogSpace</a>
+
+        <div class="nav-links">
+            <a href="{{ url_for('index') }}" class="nav-btn">Home</a>
+            <a href="{{ url_for('logout') }}" class="nav-btn">Logout</a>
+        </div>
+    </nav>
+
+    <div class="create-container">
+
+        <span class="section-tag">MAKE IT BETTER</span>
+
+        <h1>Edit Your Blog</h1>
+        <p>Update your thoughts and ideas.</p>
+
+        <form method="POST">
+
+            <label for="title">Blog Title</label>
+
+            <input
+                type="text"
+                id="title"
+                name="title"
+                value="{{ blog.title }}"
+                placeholder="Enter blog title"
+                maxlength="200"
+                required
+            >
+
+            <label for="content">Blog Content</label>
+
+            <textarea
+                id="content"
+                name="content"
+                rows="10"
+                placeholder="Write your blog..."
+                required
+            >{{ blog.content }}</textarea>
+
+            <button type="submit" class="btn">
+                Update Blog
+            </button>
+
+        </form>
+
+        <br>
+
+        <a href="{{ url_for('blog_details', blog_id=blog.id) }}" class="back-link">
+            ← Cancel and Go Back
+        </a>
+
+    </div>
+
+</body>
+</html>

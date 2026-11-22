@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BlogSpace | Home</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <h2>BlogSpace</h2>
+
+        <div>
+            <a href="/">Home</a>
+
+            {% if session.get('user_id') %}
+                <a href="/create-blog">Write Blog</a>
+                <a href="/logout">Logout</a>
+            {% else %}
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+            {% endif %}
+
+        </div>
+
+    </nav>
+
+
+    <section class="hero">
+
+        <h1>Welcome to BlogSpace</h1>
+
+        <p>Share your thoughts, stories and ideas with the world.</p>
+
+        {% if session.get('user_id') %}
+
+            <a href="/create-blog" class="btn">Start Writing</a>
+
+        {% else %}
+
+            <a href="/register" class="btn">Start Writing</a>
+
+        {% endif %}
+
+    </section>
+
+
+    <section class="blogs">
+
+        <h2>Latest Blog Posts</h2>
+
+        <p>Discover interesting stories from our community.</p>
+
+
+        <div class="blog-grid">
+
+            {% for blog in blogs %}
+
+                <div class="blog-card">
+
+                    <h3>{{ blog.title }}</h3>
+
+                    <p>{{ blog.content[:150] }}...</p>
+
+                    <small>By {{ blog.author.username }}</small>
+
+                    <br><br>
+
+                    <a href="{{ url_for('blog_details', blog_id=blog.id) }}">
+                        Read More →
+                    </a>
+
+                </div>
+
+            {% else %}
+
+                <p>No blogs published yet. Be the first to write!</p>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+</body>
+</html>
